@@ -3,7 +3,7 @@ module.exports = chdir;
 function chdir (dir, cb) {
     chdir.push();
     process.chdir(dir);
-    cb();
+    if (cb) cb();
     chdir.pop();
 };
 chdir.stack = [];
