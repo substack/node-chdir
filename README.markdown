@@ -15,7 +15,7 @@ var spawn = require('child_process').spawn;
 
 chdir('/tmp', function () {
     console.log('cwd[0]=' + process.cwd());
-    
+
     var ps = spawn('git', [
         'clone', 'https://github.com/substack/node-chdir.git'
     ]);
@@ -31,10 +31,43 @@ console.log('cwd[1]=' + process.cwd());
 output:
 
 ```
-$ node example/git.js 
+$ node example/git.js
 cwd[0]=/tmp
 cwd[1]=/home/substack/projects/node-chdir
 cloned into /tmp/node-chdir
+cwd[2]=/home/substack/projects/node-chdir
+```
+
+async functions
+===============
+
+Async functions are supported. If an async or promise returning function is passed to `chdir`, `chdir` itself is also async.
+
+```
+var chdir = require('chdir');
+var spawn = require('child-process-promise').spawn;
+
+chdir('/tmp', async function () {
+    console.log('cwd[0]=' + process.cwd());
+
+    await spawn('git', [
+        'clone', 'https://github.com/substack/node-chdir.git'
+    ]);
+
+    console.log('cloned into /tmp/node-chdir');
+    console.log('cwd[1]=' + process.cwd());
+});
+
+console.log('cwd[2]=' + process.cwd());
+```
+
+output:
+
+```
+$ node example/git.js
+cwd[0]=/tmp
+cloned into /tmp/node-chdir
+cwd[1]=/tmp
 cwd[2]=/home/substack/projects/node-chdir
 ```
 
