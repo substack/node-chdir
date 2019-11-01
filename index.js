@@ -5,7 +5,7 @@ function chdir (dir, cb) {
     process.chdir(dir);
     const result = cb ? cb() : undefined;
     if (result instanceof Promise) {
-        return result.then(() => chdir.pop())
+        return result.finally(() => chdir.pop())
     } else {
         chdir.pop();
     }
