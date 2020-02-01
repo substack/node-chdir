@@ -13,6 +13,6 @@ chdir.push = function (dir) {
 };
 
 chdir.pop = function () {
-    var dir = chdir.stack.shift();
+    var dir = chdir.stack.pop();
     if (dir !== undefined) process.chdir(dir);
 };
